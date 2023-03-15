@@ -9,3 +9,5 @@ enum class ResponsesStr (val str:String){
     RetrievedRewards("Successfully retrieved rewards")
 
 }
+
+

@@ -38,7 +38,7 @@ class Login : Fragment() {
         binding.btnLogin.setOnClickListener {
             val ptn = binding.editPtn.text.toString()
             val mpin = binding.editMpin.text.toString()
-            loginSignupVM.loginUser(ptn,mpin)
+            loginSignupVM.loginTest(ptn,mpin)
         }
 
         binding.btnBack.setOnClickListener {

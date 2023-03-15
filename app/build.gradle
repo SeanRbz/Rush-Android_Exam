@@ -6,8 +6,6 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
 
-
-
 android {
 
     compileSdkVersion rootProject.compileSdkVersion
@@ -55,20 +53,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
-        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
-    }
-    packagingOptions {
-        exclude 'META-INF/rxkotlin.kotlin_module'
-    }
-
-    lintOptions {
-        disable 'NullSafeMutableLiveData'
+        jvmTarget = '11'
     }
 }
 
@@ -91,7 +80,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
-    implementation "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
     implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
@@ -103,15 +91,20 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$rootProject.coroutinesVersion"
+
 
     // Android Jetpack Paging 3.0
-    implementation "androidx.paging:paging-runtime:$rootProject.pagingVersion"
+    implementation "androidx.paging:paging-runtime:3.0.0-alpha06"
 
     // React RxJava (ReactiveX)
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
-    //Firebase
-    implementation "com.google.firebase:firebase-auth-ktx:$rootProject.firebaseAuthVersion"
-    implementation "com.google.firebase:firebase-firestore-ktx:$rootProject.firestoreVersion"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
 
 }

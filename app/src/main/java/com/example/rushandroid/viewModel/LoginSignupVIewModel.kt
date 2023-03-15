@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModel
 import com.example.rushandroid.ResponsesStr
 import com.example.rushandroid.TestData
 import com.example.rushandroid.data.entities.LoginRequest
-import com.example.rushandroid.data.entities.LoginResponse
 import com.example.rushandroid.data.entities.RegisterRequest
 import com.example.rushandroid.data.entities.RequestUser
 import com.example.rushandroid.data.repository.LoginRepository
 import com.example.rushandroid.utils.Resource
+import java.util.regex.Pattern
+
 class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginRepository):ViewModel() {
 
     private val testData: TestData = TestData()
+
+    private val digitRegexPattern = Pattern.compile("^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}\$")
 
     private val _currentPerson: MutableLiveData<RequestUser> =
         MutableLiveData(RequestUser(0,"",null))
@@ -70,6 +73,18 @@ class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginR
         }
     }
 
+    fun validatePtn(ptn:String):Pair<String,Boolean>{
+        return if (ptn.isEmpty()) {
+            Pair("Empty Phone",false)
+        }else if (ptn.length<=9) {
+            Pair("Phone number too short it must be atleast 9 characters",false)
+        } else if (!digitRegexPattern.matcher(ptn).find()) {
+            Pair("Not a valid phone number",false)
+        }else{
+            Pair("",true)
+        }
+    }
+
     fun registerTest(mobNum:String,mpin:String,fname:String,lname:String){
         if(mobNum == "9123456789" && mpin == "1234" && fname== "Mang" && lname == "Tani" ){
             val user = testData.successUser
@@ -77,5 +92,9 @@ class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginR
         }else{
             _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedLogin.str )
         }
+    }
+
+    fun resetData(){
+        _currentPerson.value = testData.resetRequestUser
     }
 }

@@ -48,6 +48,10 @@ class Signup : Fragment(){
             }
         }
 
+        binding.btnBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         loginSignupVM.currentPerson.observeForever {
             if(it.status==200){
                 Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()

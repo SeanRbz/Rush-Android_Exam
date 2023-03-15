@@ -40,18 +40,28 @@ class Login : Fragment() {
         binding.btnLogin.setOnClickListener {
             val ptn = binding.editPtn.text.toString()
             val mpin = binding.editMpin.text.toString()
-            loginSignupVM.loginTest(ptn,mpin)
+            val isValid = loginSignupVM.validatePtn(ptn)
+            if(isValid.second){
+                loginSignupVM.loginTest(ptn,mpin)
+                observe()
+            }else{
+                Toast.makeText(requireContext(),isValid.first,Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.btnBack.setOnClickListener {
            requireActivity().onBackPressed()
         }
 
-        loginSignupVM.currentPerson.observeForever {
+    }
+
+    private fun observe(){
+        loginSignupVM.currentPerson.observe(viewLifecycleOwner, Observer {
             if(it.status==200){
-             Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-             Navigation.findNavController(requireView()).navigate(R.id.action_login_to_dashboard)
+                Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(requireView()).navigate(R.id.action_login_to_dashboard)
             }
-        }
+        })
     }
 }

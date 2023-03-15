@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rushandroid.R
 import com.example.rushandroid.data.entities.Rewards
@@ -17,6 +18,7 @@ import com.example.rushandroid.ui.adapter.RewardsAdapter
 import com.example.rushandroid.viewModel.LoginSignupVIewModel
 import com.example.rushandroid.viewModel.RewardsViewModel
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class DashBoard: Fragment() , RewardsAdapter.OnClickListener {
@@ -58,9 +60,9 @@ class DashBoard: Fragment() , RewardsAdapter.OnClickListener {
 
 
        lifecycleScope.launch {
-            rewardsVM.getList().observe(viewLifecycleOwner, Observer {
-                adapter.setRewardItems(it.list?: arrayListOf())
-            })
+            rewardsVM.latestRewards.collectLatest {
+                adapter.setRewardItems(it)
+            }
         }
 
     }

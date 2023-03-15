@@ -24,7 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingTop="5dp"
             app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintTop_toBottomOf="@+id/textLogin">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -32,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@null"
+                android:hint="Enter Mobile Number"
                 android:drawablePadding="8dp"
                 android:backgroundTint="@color/white"
-                android:hint="Enter Mobile Number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:inputType="phone"
@@ -48,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+
             app:layout_constraintTop_toBottomOf="@+id/edit_number_layout"
             app:passwordToggleEnabled="true">
 
@@ -58,13 +61,12 @@
                 android:autofillHints="@null"
                 android:drawablePadding="8dp"
                 android:backgroundTint="@color/white"
-                android:hint="Enter MPIN"
                 android:maxLength="4"
+                android:hint="Enter MPIN"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:inputType="textPassword"
-                android:padding="8dp"
-                tools:text="captain america" />
+                android:padding="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

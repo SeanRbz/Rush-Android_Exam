@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rushandroid.ResponsesStr
+import com.example.rushandroid.TestData
 import com.example.rushandroid.data.entities.LoginRequest
 import com.example.rushandroid.data.entities.LoginResponse
 import com.example.rushandroid.data.entities.RegisterRequest
@@ -11,6 +12,8 @@ import com.example.rushandroid.data.entities.RequestUser
 import com.example.rushandroid.data.repository.LoginRepository
 import com.example.rushandroid.utils.Resource
 class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginRepository):ViewModel() {
+
+    private val testData: TestData = TestData()
 
     private val _currentPerson: MutableLiveData<RequestUser> =
         MutableLiveData(RequestUser(0,"",null))
@@ -58,16 +61,9 @@ class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginR
             }
         }
     }
-
     fun loginTest(mobNum:String,mpin:String){
         if(mobNum == "9123456789" && mpin == "1234" ){
-            val user = LoginResponse(
-                id ="123-456-789-abc-def",
-                first_name = "Mang",
-                last_name = "last_name",
-                mobile = "9123456789",
-                is_verified = false,
-                referral_code =  "qwe123")
+            val user = testData.successUser
             _currentPerson.value = RequestUser(200,ResponsesStr.SuccessLogin.str,user)
         }else{
             _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedLogin.str )
@@ -76,13 +72,7 @@ class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginR
 
     fun registerTest(mobNum:String,mpin:String,fname:String,lname:String){
         if(mobNum == "9123456789" && mpin == "1234" && fname== "Mang" && lname == "Tani" ){
-            val user = LoginResponse(
-                id ="123-456-789-abc-def",
-                first_name = "Mang",
-                last_name = "last_name",
-                mobile = "9123456789",
-                is_verified = false,
-                referral_code =  "qwe123")
+            val user = testData.successUser
             _currentPerson.value = RequestUser(200,ResponsesStr.SuccessLogin.str,user)
         }else{
             _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedLogin.str )

@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import com.example.rushandroid.R
 import com.example.rushandroid.data.entities.RequestUser
 import com.example.rushandroid.databinding.FragmentLoginBinding
 import com.example.rushandroid.viewModel.LoginSignupVIewModel
@@ -46,8 +48,9 @@ class Login : Fragment() {
         }
 
         loginSignupVM.currentPerson.observeForever {
-            if(it.message!=""){
+            if(it.status==200){
              Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+             Navigation.findNavController(requireView()).navigate(R.id.action_login_to_dashboard)
             }
         }
     }

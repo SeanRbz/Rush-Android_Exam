@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.rushandroid.R
 import com.example.rushandroid.databinding.ActivityMainBinding
+import com.example.rushandroid.viewModel.LoginSignupVIewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
 
     lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val loginSignupVM: LoginSignupVIewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
@@ -34,13 +39,19 @@ class MainActivity : AppCompatActivity() {
 
         navController.setGraph(R.navigation.nav_graph)
 
-        appBarConfiguration =AppBarConfiguration(setOf(R.id.WelcomePage))
-
-        setupActionBarWithNavController(navController,appBarConfiguration)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        when (navController.currentDestination?.id) {
+             R.id.DashBoardPage -> {
+                 loginSignupVM.resetData()
+                 super.onBackPressed()
+            }
+            else->{
+                super.onBackPressed()
+            }
+        }
+
     }
 
 

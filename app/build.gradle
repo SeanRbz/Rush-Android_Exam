@@ -37,7 +37,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("keystoresrush/rushandroid.keystore")
+            storeFile file("keystoresrush/rushandroid.jks")
             storePassword 'test55'
             keyAlias 'key0'
             keyPassword 'test55'
@@ -106,5 +106,4 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
-
 }

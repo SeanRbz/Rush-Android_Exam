@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
 
 
 
@@ -21,13 +22,29 @@ android {
         applicationId "com.example.androiddeveloperexamrush"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 4
+        versionCode 1
         versionName "0.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    flavorDimensions "access"
 
+
+    productFlavors{
+        dev {
+            dimension "access"
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("keystoresrush/rushandroid.keystore")
+            storePassword 'test55'
+            keyAlias 'key0'
+            keyPassword 'test55'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -48,6 +65,10 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxkotlin.kotlin_module'
+    }
+
+    lintOptions {
+        disable 'NullSafeMutableLiveData'
     }
 }
 
@@ -88,5 +109,9 @@ dependencies {
 
     // React RxJava (ReactiveX)
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+    //Firebase
+    implementation "com.google.firebase:firebase-auth-ktx:$rootProject.firebaseAuthVersion"
+    implementation "com.google.firebase:firebase-firestore-ktx:$rootProject.firestoreVersion"
 
 }

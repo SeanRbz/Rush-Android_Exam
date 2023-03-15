@@ -8,6 +8,20 @@
     <fragment
         android:id="@+id/WelcomePage"
         android:name="com.example.rushandroid.ui.WelcomeScreen">
+        <action
+            android:id="@+id/action_welcome_to_login"
+            app:destination="@+id/LoginPage" />
+        <action
+            android:id="@+id/action_welcome_to_signup"
+            app:destination="@+id/SignUp" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/LoginPage"
+        android:name="com.example.rushandroid.ui.Login">
+    </fragment>
+    <fragment
+        android:id="@+id/SignUp"
+        android:name="com.example.rushandroid.ui.Signup">
     </fragment>
 </navigation>

@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController,appBarConfiguration)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment_home).navigateUp(appBarConfiguration)

@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rushandroid.R
 import com.example.rushandroid.data.entities.Rewards
 import com.example.rushandroid.databinding.FragmentDashboardBinding
 import com.example.rushandroid.ui.adapter.RewardsAdapter
@@ -62,17 +64,20 @@ class DashBoard: Fragment() , RewardsAdapter.OnClickListener {
         }
 
     }
-
     private fun setAdapter(){
-
         binding.recyclerItems.apply {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = RewardsAdapter(this@DashBoard)
         }
         adapter = binding.recyclerItems.adapter as RewardsAdapter
     }
-
     override fun onSelectedRewards(reward: Rewards) {
+        val bundle = Bundle()
+        bundle.putParcelable(RewardsDetailsPage.REWARDS_SELECTED,reward)
+        Navigation
+            .findNavController(requireView())
+            .navigate(R.id.action_dashboard_to_RewardsDetailsPage,bundle)
+
 
     }
 }

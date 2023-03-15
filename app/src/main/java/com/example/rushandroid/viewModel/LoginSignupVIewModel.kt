@@ -3,16 +3,13 @@ package com.example.rushandroid.viewModel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.rushandroid.ResponsesStr
+import com.example.rushandroid.data.entities.LoginRequest
+import com.example.rushandroid.data.entities.LoginResponse
+import com.example.rushandroid.data.entities.RegisterRequest
 import com.example.rushandroid.data.entities.RequestUser
-import com.example.rushandroid.data.entities.Users
 import com.example.rushandroid.data.repository.LoginRepository
-import io.reactivex.Scheduler
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-
-
+import com.example.rushandroid.utils.Resource
 class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginRepository):ViewModel() {
 
     private val _currentPerson: MutableLiveData<RequestUser> =
@@ -20,23 +17,75 @@ class LoginSignupVIewModel @ViewModelInject constructor(private val repo: LoginR
 
     val currentPerson: MutableLiveData<RequestUser> = _currentPerson
 
-   fun loginUser(mobNum:String,mpin:String){
-    repo.processLogin(mobNum,mpin).subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
-           .subscribe { userProfile: RequestUser?, throwable: Throwable? ->
-               _currentPerson.value = userProfile
+    //API
+   fun loginUser(mobNum:String,mpin:String,messageOverride:String?=null){
+       val req  = LoginRequest(mobNum,mpin)
+       val observer = repo.login(req)
+       observer.observeForever {res->
+           observer.removeObserver { observer }
+           when (res.status) {
+               Resource.Status.SUCCESS -> {
+                   val data = res.data
+                   val msg = messageOverride?: ResponsesStr.SuccessLogin.str
+                   _currentPerson.value =  RequestUser(data =data, status = 200, message = msg )
+               }
+               Resource.Status.ERROR -> {
+                   val msg = messageOverride?: ResponsesStr.FailedLogin.str
+                   _currentPerson.value =  RequestUser(data =null, status = 404, message = msg )
+               }
+               else->{
+
+               }
            }
+       }
    }
 
+    //API
     fun registerUser(mobNum:String,mpin:String,fname:String,lname:String){
+        val req = RegisterRequest(fname,lname,mobNum,mpin)
+        val observer = repo.register(req)
+        observer.observeForever {res->
+            observer.removeObserver { observer }
+            when (res.status) {
+                Resource.Status.SUCCESS -> {
+                    loginUser(mobNum,mpin,ResponsesStr.SuccessRegistration.str)
+                }
+                Resource.Status.ERROR -> {
+                    _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedRegistration.str )
+                }
+                else->{
+                }
+            }
+        }
+    }
 
-        val user = Users(fname,lname,mobNum,mpin)
-        val request= RequestUser(0,"",user)
-        repo.processRegistration(request)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{ userProfile: RequestUser?, throwable: Throwable? ->
-            _currentPerson.value = userProfile
+    fun loginTest(mobNum:String,mpin:String){
+        if(mobNum == "9123456789" && mpin == "1234" ){
+            val user = LoginResponse(
+                id ="123-456-789-abc-def",
+                first_name = "Mang",
+                last_name = "last_name",
+                mobile = "9123456789",
+                is_verified = false,
+                referral_code =  "qwe123")
+            _currentPerson.value = RequestUser(200,ResponsesStr.SuccessLogin.str,user)
+        }else{
+            _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedLogin.str )
+        }
+    }
+
+    fun registerTest(mobNum:String,mpin:String,fname:String,lname:String){
+        if(mobNum == "9123456789" && mpin == "1234" && fname== "Mang" && lname == "Tani" ){
+            val user = LoginResponse(
+                id ="123-456-789-abc-def",
+                first_name = "Mang",
+                last_name = "last_name",
+                mobile = "9123456789",
+                is_verified = false,
+                referral_code =  "qwe123")
+            _currentPerson.value = RequestUser(200,ResponsesStr.SuccessLogin.str,user)
+        }else{
+            _currentPerson.value =  RequestUser(data =null, status = 404, message = ResponsesStr.FailedLogin.str )
         }
     }
 }

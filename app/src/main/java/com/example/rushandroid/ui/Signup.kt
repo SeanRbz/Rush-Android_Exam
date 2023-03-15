@@ -40,7 +40,7 @@ class Signup : Fragment(){
             val mpin = binding.editMpin.text.toString()
             val cMPin = binding.editConfirmMpin.text.toString()
             if(mpin==cMPin){
-                loginSignupVM.registerUser(ptn,mpin, fname, lname)
+                loginSignupVM.registerTest(ptn,mpin, fname, lname)
             }else{
                 Toast.makeText(requireContext(),"PINs didnt match",Toast.LENGTH_SHORT).show()
             }

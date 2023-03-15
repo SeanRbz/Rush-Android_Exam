@@ -3,26 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/WelcomePage">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.rushandroid.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/WelcomePage"
+        android:name="com.example.rushandroid.ui.WelcomeScreen">
+        <action
+            android:id="@+id/action_welcome_to_login"
+            app:destination="@+id/LoginPage" />
+        <action
+            android:id="@+id/action_welcome_to_signup"
+            app:destination="@+id/SignUp" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginPage"
+        android:name="com.example.rushandroid.ui.Login">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_login_to_dashboard"
+            app:destination="@+id/DashBoardPage" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.rushandroid.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/SignUp"
+        android:name="com.example.rushandroid.ui.Signup">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_signup_to_dashboard"
+            app:destination="@+id/DashBoardPage" />
     </fragment>
+
+    <fragment
+        android:id="@+id/RewardsDetailsPage"
+        android:name="com.example.rushandroid.ui.RewardsDetailsPage">
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/DashBoardPage"
+        android:name="com.example.rushandroid.ui.DashBoard">
+        <action
+            android:id="@+id/action_dashboard_to_RewardsDetailsPage"
+            app:destination="@+id/RewardsDetailsPage" />
+    </fragment>
+
+
 </navigation>

@@ -1,5 +1,8 @@
 package com.example.rushandroid.data.entities
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class RequestUser(
     var status:Int =0,
     var message: String,
@@ -11,12 +14,13 @@ data class RequestRewards(
     var list: ArrayList<Rewards>? = arrayListOf()
 )
 
+@Parcelize
 class Rewards(
     val id: Int =0 ,
     val name: String = "",
     val description:String = "",
     val image: String = ""
-)
+): Parcelable
 
 data class LoginRequest (
     var mobile: String = "",

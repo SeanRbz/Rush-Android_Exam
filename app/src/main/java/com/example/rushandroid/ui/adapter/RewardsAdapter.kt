@@ -24,7 +24,7 @@ class RewardsAdapter (private val listener: OnClickListener) :
     }
 
    interface OnClickListener{
-       fun onSelectedRewards( rewward: Rewards)
+       fun onSelectedRewards( reward: Rewards)
    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewDetailsViewHolder {

@@ -34,9 +34,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/RewardsDetailsPage"
+        android:name="com.example.rushandroid.ui.RewardsDetailsPage">
+
+    </fragment>
+
+
+    <fragment
         android:id="@+id/DashBoardPage"
         android:name="com.example.rushandroid.ui.DashBoard">
-
+        <action
+            android:id="@+id/action_dashboard_to_RewardsDetailsPage"
+            app:destination="@+id/RewardsDetailsPage" />
     </fragment>
 
 

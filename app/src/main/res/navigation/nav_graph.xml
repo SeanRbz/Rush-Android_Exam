@@ -19,9 +19,25 @@
     <fragment
         android:id="@+id/LoginPage"
         android:name="com.example.rushandroid.ui.Login">
+
+        <action
+            android:id="@+id/action_login_to_dashboard"
+            app:destination="@+id/DashBoardPage" />
     </fragment>
     <fragment
         android:id="@+id/SignUp"
         android:name="com.example.rushandroid.ui.Signup">
+
+        <action
+            android:id="@+id/action_signup_to_dashboard"
+            app:destination="@+id/DashBoardPage" />
     </fragment>
+
+    <fragment
+        android:id="@+id/DashBoardPage"
+        android:name="com.example.rushandroid.ui.DashBoard">
+
+    </fragment>
+
+
 </navigation>

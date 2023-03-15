@@ -22,7 +22,7 @@
                 android:id="@+id/cardview_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="matrix"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@+id/cardview_txt_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import com.example.rushandroid.R
 import com.example.rushandroid.databinding.FragmentLoginBinding
 import com.example.rushandroid.databinding.FragmentSignupBinding
 import com.example.rushandroid.viewModel.LoginSignupVIewModel
@@ -47,9 +49,9 @@ class Signup : Fragment(){
         }
 
         loginSignupVM.currentPerson.observeForever {
-            if(it.message!=""){
+            if(it.status==200){
                 Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-                // Goto Rewards List
+                Navigation.findNavController(requireView()).navigate(R.id.action_signup_to_dashboard)
             }
         }
     }
